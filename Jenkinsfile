@@ -1,7 +1,5 @@
 pipeline { 
-    agent {
-        label 'master'
-    } 
+    agent any 
     stages {
         stage('Clone repository') { 
             steps { 
@@ -10,25 +8,21 @@ pipeline {
         }
         stage('Checking repository'){
             steps { 
-                sh "ls -la"
+                sh "ls -l"
             }
         }
-        stage('Testing ansible role') {
+        stage('Packing project') {
             steps {
                 sh '''
-                cd $(ls|grep 08)/roles/check_role
-				molecule lint > test.log
+                tar -zcvf /tmp/package.tar.gz  ./
                 '''
+                deleteDir()
+                sh "mv /tmp/package.tar.gz  ./"
             }
         }
-        stage('Outout results test') {
+        stage('Packing test') {
             steps {
-                sh "cat test.log"
-            }
-		}
-		stage('Delete files') {
-            steps {
-                deleteDir()
+                sh "ls -l"
             }
         }
     }
