@@ -25,6 +25,7 @@ pipeline {
             steps {
                 sh "cat test.log"
             }
+		}
 		stage('Delete files') {
             steps {
                 deleteDir()
