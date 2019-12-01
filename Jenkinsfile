@@ -8,21 +8,25 @@ pipeline {
         }
         stage('Checking repository'){
             steps { 
-                sh "ls -l"
+                sh "ls -la"
             }
         }
-        stage('Packing project') {
+        stage('Testing role via molecule') {
             steps {
                 sh '''
-                tar -zcvf /tmp/package.tar.gz  ./
+					cd $(ls|grep 08)/roles/check_role
+					molecule lint > test.log
                 '''
-                deleteDir()
-                sh "mv /tmp/package.tar.gz  ./"
             }
         }
-        stage('Packing test') {
+        stage('Output test') {
             steps {
-                sh "ls -l"
+                sh "cat test.log"
+            }
+        }
+		stage('Delete folder') {
+            steps {
+                deleteDir()
             }
         }
     }
