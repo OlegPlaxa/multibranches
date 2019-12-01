@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Clone repository') { 
             steps { 
-                git url: 'https://github.com/OlegPlaxa/multibranches.git'
+                git url: 'git@github.com:OlegPlaxa/github_repository.git'
             }
         }
         stage('Checking repository'){
