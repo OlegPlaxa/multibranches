@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh '''
 					cd $(ls|grep 08)/roles/check_role
-					molecule lint || exit 0 > /tmp/test.log
+					molecule lint > /tmp/test.log || exit 0 
                 '''
             }
         }
