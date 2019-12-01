@@ -15,13 +15,13 @@ pipeline {
             steps {
                 sh '''
 					cd $(ls|grep 08)/roles/check_role
-					molecule lint || exit 0 > test.log
+					molecule lint || exit 0 > /tmp/test.log
                 '''
             }
         }
         stage('Output test') {
             steps {
-                sh "cat test.log"
+                sh "cat /tmp/test.log"
             }
         }
 		stage('Delete folder') {
