@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: db
+    env_file: ./.env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_RANDOM_ROOT_PASSWORD}
+
+  wp-cli:
+    image: olegarh/wp-cli:v1
+    container_name: wp-cli
+    depends_on:
+      - db
+    ports:
+      - 8181:80
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
+      - ./thank-after-post.zip:/opt/thank-after-post.zip
+      - ./install.sh:/usr/local/bin/install.sh
+    env_file: ./.env
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
