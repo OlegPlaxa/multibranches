@@ -4,7 +4,7 @@ services:
   db:
     image: mysql:5.7
     container_name: db
-    env_file: ./.env
+    env_file: ./env
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
@@ -22,7 +22,7 @@ services:
       - ./wp-content:/var/www/html/wp-content
       - ./thank-after-post.zip:/opt/thank-after-post.zip
       - ./install.sh:/usr/local/bin/install.sh
-    env_file: ./.env
+    env_file: ./env
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
