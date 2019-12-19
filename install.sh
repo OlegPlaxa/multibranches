@@ -2,7 +2,7 @@
 
 wp core download --force --allow-root
 wp config create \
-  --dbhost=$WORDPRESS_DB_HOST \
+  --dbhost=db \
   --dbname=$WORDPRESS_DB_NAME \
   --dbuser=$WORDPRESS_DB_USER \
   --dbpass=$WORDPRESS_DB_PASSWORD \
